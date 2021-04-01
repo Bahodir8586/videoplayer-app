@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "./axios";
 
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
@@ -22,6 +22,11 @@ function App() {
 
   const submitFile = useCallback((file) => {
     setIsLoading(true);
+    if (!file.type.match("video.*")) {
+      setShowErrorMessage(true);
+      initialState();
+      return;
+    }
     const formData = new FormData();
     formData.append("File", file);
     formData.append("Code", enteredCode);
