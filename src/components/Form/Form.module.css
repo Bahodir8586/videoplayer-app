@@ -1,0 +1,53 @@
+.form {
+  padding: 50px 0;
+}
+.form div {
+  text-align: center;
+}
+.form label {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.form button {
+  background-color: white;
+  border: 2px solid #17b978;
+  color: #17b978;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  margin: 0 auto;
+}
+.form button:hover {
+  background-color: #17b978;
+  color: white;
+}
+.labelForText {
+  display: block;
+}
+.inputForText {
+  width: 40%;
+  margin: 0 auto;
+  padding: 10px 5px;
+  margin-bottom: 20px;
+}
+.labelForFile {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid black;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.labelForFile:hover {
+  background-color: black;
+  color: white;
+}
+.inputForFile {
+  height: 0;
+  width: 0;
+}
