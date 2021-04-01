@@ -1,19 +1,20 @@
 .video {
   position: relative;
-  padding: 40px 20px;
+  padding: 43px 20px;
   margin: 40px 0;
 }
 .video button {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: white;
-  border: 1px solid #ff304f;
+  border: 2px solid #ff304f;
   color: #ff304f;
   transition: all 0.3s ease;
   outline: none;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
 }
 .video button:hover {

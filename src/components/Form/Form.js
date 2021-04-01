@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "./Form.module.css";
+import strings from "../../constants/strings";
 
 const Form = (props) => {
   const [inputValue, setinputValue] = useState("");
@@ -44,14 +45,15 @@ const Form = (props) => {
         <input
           type={props.inputType}
           id="input"
-          //   value={inputValue}
           onChange={inputHandler}
           className={classes.input}
           autoComplete="off"
         />
       </div>
       <div>
-        <button onClick={() => props.onSubmit(inputValue)}>Submit</button>
+        <button onClick={() => props.onSubmit(inputValue)}>
+          {strings.submit}
+        </button>
       </div>
     </div>
   );
