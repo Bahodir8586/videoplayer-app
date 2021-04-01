@@ -4,7 +4,8 @@ import styles from "./VideoPlayer.module.css";
 const VideoPlayer = (props) => {
   return (
     <div className={styles.video}>
-      <video controls autoPlay src={props.src} />
+      <button onClick={props.closePlayer}>Close</button>
+      <video controls autoPlay src={props.src} width="800" height="450" />
     </div>
   );
 };

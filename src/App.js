@@ -11,21 +11,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [enteredCode, setEnteredCode] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
-
-  useEffect(() => {
-    setVideoSrc("");
-    setIsLoading(false);
-    setEnteredCode("");
-  }, []);
+  const [showFirstForm, setShowFirstForm] = useState(true);
+  const [showSecondForm, setShowSecondForm] = useState(false);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
 
   const submitFile = useCallback((e) => {
     setIsLoading(true);
-    console.log(e);
-    // const formData={
-    //   File: e,
-    //   Code: enteredCode,
-    //   Template: 1,
-    // };
     const formData = new FormData();
     formData.append("File", e);
     formData.append("Code", enteredCode);
@@ -38,6 +29,8 @@ function App() {
       })
       .then((response) => {
         setIsLoading(false);
+        setShowSecondForm(false);
+        setShowVideoPlayer(true);
         console.log(response);
       })
       .catch((error) => {
@@ -50,12 +43,14 @@ function App() {
     axios
       .get(`https://dev.gift.routeam.ru/api/${code}`)
       .then((response) => {
-        console.log(response.data.video);
         if (response.data.video) {
           setVideoSrc(response.data.video);
+          setShowVideoPlayer(true);
         } else {
           setEnteredCode(code);
+          setShowSecondForm(true);
         }
+        setShowFirstForm(false);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -63,26 +58,34 @@ function App() {
         setIsLoading(false);
       });
   });
-  let videoElement = videoSrc ? <VideoPlayer src={videoSrc} /> : null;
-  let formElement = enteredCode && (
+
+  const closePlayer = () => {
+    setShowVideoPlayer(false);
+    setShowFirstForm(true);
+    setShowSecondForm(false);
+  };
+
+  const videoElement = <VideoPlayer src={videoSrc} closePlayer={closePlayer} />;
+  const formElement2 = (
     <Form
       inputType="file"
       label="Please choose a file"
       onSubmit={(e) => submitFile(e)}
     />
   );
+  const formElement1 = (
+    <Form
+      inputType="text"
+      label="Please enter a code"
+      onSubmit={(code) => checkCode(code)}
+    />
+  );
 
   let page = (
     <>
-      {!enteredCode && (
-        <Form
-          inputType="text"
-          label="Please enter a code"
-          onSubmit={(code) => checkCode(code)}
-        />
-      )}
-      {videoElement}
-      {formElement}
+      {showFirstForm && formElement1}
+      {showVideoPlayer && videoElement}
+      {showSecondForm && formElement2}
     </>
   );
   if (isLoading) {

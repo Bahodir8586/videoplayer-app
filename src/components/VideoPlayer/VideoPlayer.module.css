@@ -1,5 +1,22 @@
 .video {
-  width: 600px;
-  height: 100%;
-  margin: 100px auto;
+  position: relative;
+  padding: 40px 20px;
+  margin: 40px 0;
+}
+.video button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 15px;
+  background-color: white;
+  border: 1px solid #ff304f;
+  color: #ff304f;
+  transition: all 0.3s ease;
+  outline: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+.video button:hover {
+  color: white;
+  background-color: #ff304f;
 }

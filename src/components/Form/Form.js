@@ -47,6 +47,7 @@ const Form = (props) => {
           value={enteredCode}
           onChange={inputHandler}
           className={classes.input}
+          autoComplete="off"
         />
       </div>
       <div>
