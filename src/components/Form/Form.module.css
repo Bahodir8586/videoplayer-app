@@ -26,6 +26,13 @@
   background-color: #17b978;
   color: white;
 }
+.form span {
+  font-size: 12px;
+  text-align: center;
+  font-weight: 600;
+  color: red;
+  height: 14px;
+}
 .labelForText {
   display: block;
 }

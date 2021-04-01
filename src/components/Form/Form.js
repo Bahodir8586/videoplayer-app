@@ -4,6 +4,7 @@ import styles from "./Form.module.css";
 
 const Form = (props) => {
   const [enteredCode, setEnteredCode] = useState("");
+  const [file, setFile] = useState("");
 
   let classNames = [
     {
@@ -22,6 +23,9 @@ const Form = (props) => {
 
   const inputHandler = (e) => {
     setEnteredCode(e.target.value);
+    if (props.inputType === "file") {
+      setFile(e.target.files[0]);
+    }
   };
   return (
     <div className={styles.form}>
@@ -30,6 +34,11 @@ const Form = (props) => {
           {props.label}
         </label>
       </div>
+      {props.inputType === "file" && (
+        <div>
+          <span>{file.name}</span>
+        </div>
+      )}
 
       <div>
         <input
@@ -42,6 +51,7 @@ const Form = (props) => {
       </div>
       <div>
         <button onClick={() => props.onSubmit(enteredCode)}>Submit</button>
+        <button onClick={() => props.onSubmit(file)}>Confirm</button>
       </div>
     </div>
   );

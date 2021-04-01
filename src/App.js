@@ -19,9 +19,31 @@ function App() {
   }, []);
 
   const submitFile = useCallback((e) => {
-    console.log(e);
     setIsLoading(true);
-    setIsLoading(false);
+    console.log(e);
+    // const formData={
+    //   File: e,
+    //   Code: enteredCode,
+    //   Template: 1,
+    // };
+    const formData = new FormData();
+    formData.append("File", e);
+    formData.append("Code", enteredCode);
+    formData.append("Template", 1);
+    axios
+      .post("https://dev.gift.routeam.ru/api", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        setIsLoading(false);
+        console.log(response);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
   });
   const checkCode = useCallback((code) => {
     setIsLoading(true);
@@ -30,9 +52,7 @@ function App() {
       .then((response) => {
         console.log(response.data.video);
         if (response.data.video) {
-          setVideoSrc(
-            "https://s3.amazonaws.com/codecademy-content/courses/React/react_video-fast.mp4"
-          );
+          setVideoSrc(response.data.video);
         } else {
           setEnteredCode(code);
         }
