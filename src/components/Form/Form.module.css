@@ -58,3 +58,12 @@
   height: 0;
   width: 0;
 }
+.disabled {
+  background-color: #ccc !important;
+  color: #333;
+  cursor: not-allowed !important;
+}
+.disabled:hover {
+  color: #333 !important;
+  opacity: 0.4;
+}

@@ -42,10 +42,12 @@ function App() {
             setIsLoading(false);
           })
           .catch((error) => {
+            setShowErrorMessage(true);
             initialState();
           });
       })
       .catch((error) => {
+        setShowErrorMessage(true);
         initialState();
       });
   });

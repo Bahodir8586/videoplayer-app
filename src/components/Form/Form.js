@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "./Form.module.css";
 import strings from "../../constants/strings";
 
 const Form = (props) => {
   const [inputValue, setinputValue] = useState("");
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (inputValue) {
+      setDisabled(false);
+      return;
+    }
+    setDisabled(true);
+  }, [inputValue]);
 
   let classNames = [
     {
@@ -27,6 +36,12 @@ const Form = (props) => {
       return;
     }
     setinputValue(e.target.value);
+  };
+  const submitHandler = () => {
+    if (!inputValue) {
+      return;
+    }
+    props.onSubmit(inputValue);
   };
   return (
     <div className={styles.form}>
@@ -51,7 +66,10 @@ const Form = (props) => {
         />
       </div>
       <div>
-        <button onClick={() => props.onSubmit(inputValue)}>
+        <button
+          className={disabled ? styles.disabled : " "}
+          onClick={submitHandler}
+        >
           {strings.submit}
         </button>
       </div>
