@@ -28,13 +28,20 @@ function App() {
         },
       })
       .then((response) => {
-        setIsLoading(false);
-        setShowSecondForm(false);
-        setShowVideoPlayer(true);
-        console.log(response);
+        axios
+          .get(`https://dev.gift.routeam.ru/api/${enteredCode}`)
+          .then((response) => {
+            setVideoSrc(response.data.video);
+            setShowVideoPlayer(true);
+            setShowSecondForm(false);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+          });
       })
       .catch((error) => {
-        setIsLoading(false);
         console.log(error);
       });
   });

@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import styles from "./Form.module.css";
 
 const Form = (props) => {
-  const [enteredCode, setEnteredCode] = useState("");
-  const [file, setFile] = useState("");
+  const [inputValue, setinputValue] = useState("");
 
   let classNames = [
     {
@@ -22,10 +21,11 @@ const Form = (props) => {
   }
 
   const inputHandler = (e) => {
-    setEnteredCode(e.target.value);
     if (props.inputType === "file") {
-      setFile(e.target.files[0]);
+      setinputValue(e.target.files[0]);
+      return;
     }
+    setinputValue(e.target.value);
   };
   return (
     <div className={styles.form}>
@@ -36,7 +36,7 @@ const Form = (props) => {
       </div>
       {props.inputType === "file" && (
         <div>
-          <span>{file.name}</span>
+          <span>{inputValue.name}</span>
         </div>
       )}
 
@@ -44,15 +44,14 @@ const Form = (props) => {
         <input
           type={props.inputType}
           id="input"
-          value={enteredCode}
+          //   value={inputValue}
           onChange={inputHandler}
           className={classes.input}
           autoComplete="off"
         />
       </div>
       <div>
-        <button onClick={() => props.onSubmit(enteredCode)}>Submit</button>
-        <button onClick={() => props.onSubmit(file)}>Confirm</button>
+        <button onClick={() => props.onSubmit(inputValue)}>Submit</button>
       </div>
     </div>
   );
