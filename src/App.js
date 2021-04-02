@@ -25,36 +25,36 @@ function App() {
     if (!file.type.match("video.*")) {
       setShowErrorMessage(true);
       initialState();
-      return;
+    } else {
+      const formData = new FormData();
+      formData.append("File", file);
+      formData.append("Code", enteredCode);
+      formData.append("Template", 1);
+      axios
+        .post("/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          axios
+            .get(`/${enteredCode}`)
+            .then((response) => {
+              setVideoSrc(response.data.video);
+              setShowVideoPlayer(true);
+              setShowSecondForm(false);
+              setIsLoading(false);
+            })
+            .catch((error) => {
+              setShowErrorMessage(true);
+              initialState();
+            });
+        })
+        .catch((error) => {
+          setShowErrorMessage(true);
+          initialState();
+        });
     }
-    const formData = new FormData();
-    formData.append("File", file);
-    formData.append("Code", enteredCode);
-    formData.append("Template", 1);
-    axios
-      .post("/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        axios
-          .get(`/${enteredCode}`)
-          .then((response) => {
-            setVideoSrc(response.data.video);
-            setShowVideoPlayer(true);
-            setShowSecondForm(false);
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            setShowErrorMessage(true);
-            initialState();
-          });
-      })
-      .catch((error) => {
-        setShowErrorMessage(true);
-        initialState();
-      });
   });
   const checkCode = useCallback((code) => {
     setIsLoading(true);
